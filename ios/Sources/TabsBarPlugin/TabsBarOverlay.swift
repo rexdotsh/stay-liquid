@@ -51,10 +51,7 @@ final class TabsBarOverlay: UIViewController, UITabBarDelegate {
     private var idToIndex: [String: Int] = [:]
     private let tabBar = UITabBar()
     var onSelected: ((String) -> Void)?
-    static let barHeight: CGFloat = 62
-    static let horizontalPadding: CGFloat = 21
-    static let bottomPadding: CGFloat = 21
-    static let preferredHeight: CGFloat = barHeight + bottomPadding
+    static let preferredHeight: CGFloat = 83
     
     // Color configuration
     private var selectedIconColor: UIColor?
@@ -69,10 +66,10 @@ final class TabsBarOverlay: UIViewController, UITabBarDelegate {
         view.addSubview(tabBar)
 
         NSLayoutConstraint.activate([
-            tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Self.horizontalPadding),
-            tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Self.horizontalPadding),
+            tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tabBar.topAnchor.constraint(equalTo: view.topAnchor),
-            tabBar.heightAnchor.constraint(equalToConstant: Self.barHeight)
+            tabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
