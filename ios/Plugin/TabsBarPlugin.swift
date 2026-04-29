@@ -439,7 +439,17 @@ private enum JSBadge: Decodable {
 
 /// Plugin for managing Liquid Glass tab bar overlays in Ionic applications
 @objc(TabsBarPlugin)
-public class TabsBarPlugin: CAPPlugin {
+public class TabsBarPlugin: CAPPlugin, CAPBridgedPlugin {
+    public let identifier = "TabsBarPlugin"
+    public let jsName = "TabsBar"
+    public let pluginMethods: [CAPPluginMethod] = [
+        CAPPluginMethod(name: "configure", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "show", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "hide", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "select", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setBadge", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getSafeAreaInsets", returnType: CAPPluginReturnPromise)
+    ]
 
     private var overlayVC: TabsBarOverlay? {
         didSet {
