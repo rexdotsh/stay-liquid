@@ -66,9 +66,6 @@ final class TabsBarOverlay: UIViewController, UITabBarDelegate {
 
         tabBar.translatesAutoresizingMaskIntoConstraints = false
         tabBar.delegate = self
-        tabBar.itemPositioning = .fill
-        tabBar.itemSpacing = 0
-        applyAppearance()
         view.addSubview(tabBar)
 
         NSLayoutConstraint.activate([
@@ -95,8 +92,6 @@ final class TabsBarOverlay: UIViewController, UITabBarDelegate {
 
         let barItems: [UITabBarItem] = items.enumerated().map { (idx, model) in
             let item = UITabBarItem(title: model.title ?? "", image: nil, tag: idx)
-            item.imageInsets = UIEdgeInsets(top: 3, left: 0, bottom: -3, right: 0)
-            item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -4)
             applyBadge(model.badge, to: item)
             
             // Load image with priority: imageIcon > systemIcon > image > placeholder
@@ -106,7 +101,6 @@ final class TabsBarOverlay: UIViewController, UITabBarDelegate {
         }
         tabBar.items = barItems
         
-        // Apply color configuration
         applyColorConfiguration()
 
         if let initialId, let idx = idToIndex[initialId], let items = tabBar.items, idx < items.count {
@@ -123,7 +117,6 @@ final class TabsBarOverlay: UIViewController, UITabBarDelegate {
     func select(id: String) {
         guard let idx = idToIndex[id], let items = tabBar.items, idx < items.count else { return }
         tabBar.selectedItem = items[idx]
-        // Ensure colors are applied after selection change
         applyColorConfiguration()
     }
 
@@ -595,59 +588,6 @@ final class TabsBarOverlay: UIViewController, UITabBarDelegate {
             tabBar.unselectedItemTintColor = unselectedColor
         }
 
-        applyAppearance()
-    }
-
-    private func applyAppearance() {
-        let selectedColor = selectedIconColor ?? tabBar.tintColor ?? UIColor.label
-        let unselectedColor = unselectedIconColor ?? UIColor.secondaryLabel
-        let font = UIFont.systemFont(ofSize: 10, weight: .semibold)
-        let appearance = UITabBarAppearance()
-
-        appearance.configureWithTransparentBackground()
-        appearance.shadowColor = .clear
-
-        configureItemAppearance(
-            appearance.stackedLayoutAppearance,
-            selectedColor: selectedColor,
-            unselectedColor: unselectedColor,
-            font: font
-        )
-        configureItemAppearance(
-            appearance.inlineLayoutAppearance,
-            selectedColor: selectedColor,
-            unselectedColor: unselectedColor,
-            font: font
-        )
-        configureItemAppearance(
-            appearance.compactInlineLayoutAppearance,
-            selectedColor: selectedColor,
-            unselectedColor: unselectedColor,
-            font: font
-        )
-
-        tabBar.standardAppearance = appearance
-        if #available(iOS 15.0, *) {
-            tabBar.scrollEdgeAppearance = appearance
-        }
-    }
-
-    private func configureItemAppearance(
-        _ itemAppearance: UITabBarItemAppearance,
-        selectedColor: UIColor,
-        unselectedColor: UIColor,
-        font: UIFont
-    ) {
-        itemAppearance.normal.iconColor = unselectedColor
-        itemAppearance.normal.titleTextAttributes = [
-            .foregroundColor: unselectedColor,
-            .font: font
-        ]
-        itemAppearance.selected.iconColor = selectedColor
-        itemAppearance.selected.titleTextAttributes = [
-            .foregroundColor: selectedColor,
-            .font: font
-        ]
     }
 
     // MARK: UITabBarDelegate
