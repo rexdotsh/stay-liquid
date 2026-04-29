@@ -650,6 +650,7 @@ public class TabsBarPlugin: CAPPlugin {
         NSLayoutConstraint.activate([
             overlay.view.leadingAnchor.constraint(equalTo: hostVC.view.leadingAnchor),
             overlay.view.trailingAnchor.constraint(equalTo: hostVC.view.trailingAnchor),
+            overlay.view.heightAnchor.constraint(equalToConstant: 96),
             overlay.view.bottomAnchor.constraint(equalTo: hostVC.view.bottomAnchor)
         ])
 
