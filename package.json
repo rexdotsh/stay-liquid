@@ -1,26 +1,52 @@
 {
   "name": "stay-liquid",
-  "version": "0.1.0",
-  "description": "Native Liquid Glass for Ionic & Capacitor Applications.",
-  "license": "MIT",
+  "version": "0.2.0",
+  "description": "Native iOS Liquid Glass tab bars for Capacitor applications.",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "types": "src/index.d.ts",
   "files": [
-    "dist",
+    "src/",
     "ios/Sources",
     "Package.swift",
-    "src",
     "StayLiquid.podspec",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js",
+      "default": "./src/index.js"
     }
+  },
+  "sideEffects": false,
+  "author": "Alistair Heath",
+  "contributors": [
+    "rexdotsh"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rexdotsh/stay-liquid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rexdotsh/stay-liquid/issues"
+  },
+  "homepage": "https://github.com/rexdotsh/stay-liquid#readme",
+  "keywords": [
+    "capacitor",
+    "ios",
+    "ionic",
+    "liquid-glass",
+    "tab-bar"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "capacitor": {
     "ios": {
@@ -28,16 +54,11 @@
     }
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "clean": "rimraf dist"
+    "check": "node --check src/index.js",
+    "verify:ios": "xcodebuild -scheme StayLiquid -destination generic/platform=iOS",
+    "prepublishOnly": "npm run check"
   },
   "peerDependencies": {
-    "@capacitor/core": ">=6.0.0"
-  },
-  "devDependencies": {
-    "tsup": "^8.0.0",
-    "typescript": "^5.4.0",
-    "rimraf": "^5.0.0"
+    "@capacitor/core": ">=8.0.0 <9.0.0"
   }
 }

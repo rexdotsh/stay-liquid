@@ -7,7 +7,8 @@ let package = Package(
     products: [
         .library(
             name: "StayLiquid",
-            targets: ["TabsBarPlugin"])
+            targets: ["TabsBarPlugin"]
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "8.0.0")
@@ -19,6 +20,7 @@ let package = Package(
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm")
             ],
-            path: "ios/Sources/TabsBarPlugin")
+            path: "ios/Sources/TabsBarPlugin"
+        )
     ]
 )
